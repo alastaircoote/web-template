@@ -1,0 +1,41 @@
+{
+  "name": "web-template",
+  "description": "My gulp-ed template for working with LESS and Browserify",
+  "version": "0.0.0",
+  "private": true,
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "watch": "node node_modules/gulp/bin/gulp.js watch",
+    "dist": "node node_modules/gulp/bin/gulp.js dist",
+    "run-dist": "node node_modules/gulp/bin/gulp.js run-dist"
+  },
+  "author": "Alastair Coote",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "async": "~0.8.0",
+    "backbone": "~1.1.2",
+    "browserify-handlebars": "~0.2.0",
+    "browsernizr": "~1.0.2",
+    "coffee-script": "~1.7.1",
+    "coffeeify": "~0.6.0",
+    "express": "^4.3.1",
+    "gulp": "~3.6.2",
+    "gulp-autoprefixer": "0.0.6",
+    "gulp-browserify": "~0.5.0",
+    "gulp-clean": "~0.2.4",
+    "gulp-html-replace": "~1.1.0",
+    "gulp-less": "~1.2.3",
+    "gulp-livereload": "^1.5.0",
+    "gulp-minify-css": "~0.3.4",
+    "gulp-plumber": "~0.6.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-uglify": "~0.2.1",
+    "handlebars": "~1.3.0",
+    "jquery": "~1.11.1"
+  },
+  "devDependencies": {
+    "osx-notifier": "~0.2.1"
+  }
+}
