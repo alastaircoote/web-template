@@ -1,1 +1,2 @@
-console.log "let's go."
+define [], ->
+    console.log "let's go."

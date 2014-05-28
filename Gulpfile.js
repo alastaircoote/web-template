@@ -1,9 +1,10 @@
 require('coffee-script/register');
 
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
+var requirejs = require('requirejs');
 var path = require('path');
 var less = require('gulp-less');
+var coffee = require('gulp-coffee');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var liveReload = require('gulp-livereload');
@@ -80,16 +81,19 @@ gulp.task('watch', ['clean-watch'], function() {
   }
 
   var processCoffee = function() {
-    gulp.src(srcPath + '/coffee/main.coffee', { read: false })
-      .pipe(watchPlumber())
-      .pipe(browserify({
-        transform: ['coffeeify','browserify-handlebars'],
-        extensions: ['.coffee'],
-        debug:true
-      }))
-      .pipe(rename('main.js'))
-      .pipe(gulp.dest(path.join(outPath,'js')))
-      .pipe(liveReload());
+    gulp.src(paths.coffee)
+      .pipe(coffee({bare:true}))
+      .pipe(gulp.dest(path.join(outPath,'js-tmp')))
+      .on('end', function() {
+        requirejs.optimize({
+          baseUrl: path.join(outPath,'js-tmp'),
+          name: 'main',
+          out: path.join(outPath,'js','main.js')
+        }, function() {
+          liveReload()
+        });
+      })
+      //.pipe(liveReload());
   }
 
   var copyStatic = function() {
