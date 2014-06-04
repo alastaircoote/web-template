@@ -9,6 +9,7 @@ var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var liveReload = require('gulp-livereload');
 var prefix = require('gulp-autoprefixer');
+var insert = require('gulp-insert');
 var plumber = require('gulp-plumber');
 var minifyCss = require('gulp-minify-css');
 var htmlReplace = require('gulp-html-replace');
@@ -83,11 +84,16 @@ gulp.task('watch', ['clean-watch'], function() {
   var processCoffee = function() {
     gulp.src(paths.coffee)
       .pipe(coffee({bare:true}))
+      .pipe(insert.prepend("define(function(require,exports,module){"))
+      .pipe(insert.append("});"))
       .pipe(gulp.dest(path.join(outPath,'js-tmp')))
+
       .on('end', function() {
         requirejs.optimize({
           baseUrl: path.join(outPath,'js-tmp'),
           name: 'main',
+          generateSourceMaps: true,
+          preserveLicenseComments: false,
           out: path.join(outPath,'js','main.js')
         }, function() {
           liveReload()
