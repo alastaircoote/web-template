@@ -76,7 +76,7 @@ gulp.task('watch', ['clean-watch'], function() {
       .pipe(less({sourceMap:true}))
       .pipe(prefix("last 1 version", "> 1%", "ie 8"))
       .pipe(gulp.dest(path.join(outPath,'css')))
-      .pipe(liveReload());
+      .pipe(liveReload(9999));
   }
 
   var processCoffee = function() {
@@ -89,19 +89,19 @@ gulp.task('watch', ['clean-watch'], function() {
       }))
       .pipe(rename('main.js'))
       .pipe(gulp.dest(path.join(outPath,'js')))
-      .pipe(liveReload());
+      .pipe(liveReload(9999));
   }
 
   var copyStatic = function() {
      gulp.src(paths.staticPaths, {base:"src/"})
       .pipe(gulp.dest(outPath))
-      .pipe(liveReload());
+      .pipe(liveReload(9999));
     };
 
   var copyHtml = function() {
     gulp.src(paths.html, {base:"src/"})
       .pipe(gulp.dest(outPath))
-      .pipe(liveReload());
+      .pipe(liveReload(9999));
   };
 
   gulp.watch(paths.less, processLess);
